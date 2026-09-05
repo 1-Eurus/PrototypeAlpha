@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Build web app
-        run: npx run build
+        run: npm run build
 
       - name: Sync Capacitor Android
         run: npx cap sync android
