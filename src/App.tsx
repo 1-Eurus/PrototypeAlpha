@@ -1433,27 +1433,14 @@ export default function App() {
   const mic = { micActive, onMicToggle: () => setMicActive(v => !v) }
 
   return (
-    <div className="flex size-full items-center justify-center" style={{ background: '#C8B9A8', fontFamily: 'Nunito, sans-serif' }}>
-      <div
-        className="relative flex flex-col overflow-hidden"
-        style={{
-          width: 390,
-          height: 844,
-          maxHeight: '100dvh',
-          maxWidth: '100vw',
-          borderRadius: 44,
-          boxShadow: '0 40px 100px rgba(0,0,0,0.38), 0 2px 8px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(255,255,255,0.12)',
-          background: '#FBF8F0',
-          border: '10px solid #1A1512',
-        }}
-      >
-        {/* Status bar - show in both flows */}
-        <div className="flex shrink-0 items-center justify-between px-6 transition-colors duration-300" style={{ background: flow === 'portal' ? statusColor(screen) : 'rgba(0,0,0,0.1)', height: 44, position: 'absolute', top: 0, left: 0, right: 0, zIndex: 50 }}>
-          <span className="text-xs font-bold" style={{ color: 'rgba(255,255,255,0.8)', fontFamily: 'DM Sans, sans-serif' }}>9:41</span>
-          <div className="h-5 w-28 rounded-full" style={{ background: 'rgba(0,0,0,0.5)' }} />
-          <span className="text-xs" style={{ color: 'rgba(255,255,255,0.7)' }}>●●● ▌</span>
-        </div>
+    <div className="flex h-screen w-screen flex-col overflow-hidden" style={{ background: '#FBF8F0', fontFamily: 'Nunito, sans-serif' }}>
+      {/* Status bar padding for real mobile devices */}
+      <div className="flex shrink-0 items-center justify-between px-6 transition-colors duration-300" style={{ background: flow === 'portal' ? statusColor(screen) : 'rgba(0,0,0,0.1)', height: 32, width: '100%', zIndex: 50 }}>
+        <span className="text-xs font-bold" style={{ color: 'rgba(255,255,255,0.8)', fontFamily: 'DM Sans, sans-serif' }}>9:41</span>
+        <span className="text-xs" style={{ color: 'rgba(255,255,255,0.7)' }}>●●● ▌</span>
+      </div>
 
+      <div className="relative flex flex-1 flex-col overflow-hidden w-full h-full">
         {flow === 'onboarding' ? (
           // ONBOARDING FLOW
           <div className="h-full w-full bg-neutral-100 text-white">
@@ -1487,7 +1474,7 @@ export default function App() {
                 </svg>
 
                 {/* Top wordmark */}
-                <div className="relative px-8 pt-12">
+                <div className="relative px-8 pt-8">
                   <div className="flex items-center gap-2">
                     <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: '#355FC7' }}>
                       <span className="text-white text-sm font-black">M</span>
@@ -1498,7 +1485,6 @@ export default function App() {
 
                 {/* Center hero */}
                 <div className="relative flex flex-1 flex-col items-center justify-center px-8 text-center">
-                  {/* Orb */}
                   <div className="relative mb-8">
                     <div className="w-36 h-36 rounded-full flex items-center justify-center mx-auto" style={{ background: 'rgba(53,95,199,0.08)', border: '1.5px solid rgba(53,95,199,0.18)' }}>
                       <div className="w-24 h-24 rounded-full flex items-center justify-center" style={{ background: 'rgba(53,95,199,0.12)', border: '1.5px solid rgba(53,95,199,0.22)' }}>
@@ -1533,8 +1519,8 @@ export default function App() {
             )}
 
             {onboardStep !== "welcome" && (
-              <main className="flex h-full items-center justify-center bg-gradient-to-br from-[#1D2B49] via-[#355FC7] to-[#4A7C59] px-5 pt-10">
-                <div className="w-full rounded-3xl bg-[#FBF8F0] p-6 text-gray-900 shadow-2xl">
+              <main className="flex h-full items-center justify-center bg-gradient-to-br from-[#1D2B49] via-[#355FC7] to-[#4A7C59] px-5 pt-6">
+                <div className="w-full max-w-md rounded-3xl bg-[#FBF8F0] p-6 text-gray-900 shadow-2xl">
                   {onboardStep === "language" && (
                     <>
                       <h2 className="text-xl font-bold text-[#1D2B49]">{t.chooseLanguage}</h2>
@@ -1688,7 +1674,7 @@ export default function App() {
             )}
           </div>
         ) : (
-          // PORTAL FLOW (Your original app)
+          // PORTAL FLOW
           <>
             {showPinScreen ? (
               <PinVerificationScreen
@@ -1703,7 +1689,7 @@ export default function App() {
               />
             ) : (
               <>
-                <div className="flex-1 overflow-hidden pt-11">
+                <div className="flex-1 overflow-hidden">
                   {screen === 'home' && (
                     <HomeScreen
                       onNavigate={navigate}
@@ -1722,10 +1708,6 @@ export default function App() {
                 </div>
 
                 <BottomNav screen={screen} onNavigate={navTab} />
-
-                <div className="flex shrink-0 justify-center pb-2" style={{ background: '#FBF8F0' }}>
-                  <div className="h-1 w-28 rounded-full" style={{ background: '#1D2B4922' }} />
-                </div>
               </>
             )}
           </>
